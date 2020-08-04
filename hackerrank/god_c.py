@@ -10,4 +10,3 @@ for card in cards:
     if (mp[card] + 1) < len(cards):
         pos += mp[card] + 1
     else:
-        
