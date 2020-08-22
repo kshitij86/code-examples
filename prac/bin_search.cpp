@@ -9,6 +9,7 @@ typedef vector<vector<int>> vecvi;
 typedef vector<vector<string>> vecvs;
 #define REP(i, a, b) for (i = a; i < b; i++)
 #define rep(i, n) REP(i, 0, n)
+#define pb push_back
 
 void print_arr(int arr[], int n)
 {
@@ -37,43 +38,33 @@ void print_vectorv(vecvi arr)
 	cout << endl;
 }
 
-ll subs_freq_fun(ll x, ll n, ll mod)
+int b_search(int n, int arr[], int target, int l, int r)
 {
-	ll res = 1;
-	x %= mod;
-	while (n)
+	if (r >= l)
 	{
-		if (n & 1)
-			res = (res * x) % mod;
-		x = (x * x) % mod;
-		n >>= 1;
+		int mid = (l + r) / 2;
+		// cout << mid << endl;
+
+		if (arr[mid] == target)
+			return mid;
+
+		if (arr[mid] > target)
+			return b_search(n, arr, target, l, mid - 1);
+
+		return b_search(n, arr, target, mid + 1, r);
 	}
-	return res;
+
+	return -1;
 }
 
 int main()
 {
-	const int BIG_CHUNGUS = 1000000007;
-	int test, n, x, i;
+	cin.tie(NULL);
+	ios_base::sync_with_stdio(0);
 
-	cin >> test;
+	int n = 5, target = 10, i;
 
-	while (test--)
-	{
-		veci arr, b;
-		map<int, int> mp;
+	int arr[n] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 
-		cin >> n;
-		rep(i, n)
-		{
-			cin >> x;
-			arr.push_back(x);
-		}
-
-		rep(i, n)
-		{
-			cout << subs_freq_fun(2, n - i, BIG_CHUNGUS);
-		}
-		cout << endl;
-		return 0;
-	}
+	cout << "Found at: " << b_search(n, arr, target, 0, n - 1) << endl;
+}

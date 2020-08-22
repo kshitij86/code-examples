@@ -9,6 +9,7 @@ typedef vector<vector<int>> vecvi;
 typedef vector<vector<string>> vecvs;
 #define REP(i, a, b) for (i = a; i < b; i++)
 #define rep(i, n) REP(i, 0, n)
+#define pb push_back
 
 void print_arr(int arr[], int n)
 {
@@ -37,43 +38,42 @@ void print_vectorv(vecvi arr)
 	cout << endl;
 }
 
-ll subs_freq_fun(ll x, ll n, ll mod)
+int sumx(int n, int *arr)
 {
-	ll res = 1;
-	x %= mod;
-	while (n)
+	static int i, sum;
+
+	rep(i, n)
+		sum += arr[i];
+
+	return sum;
+}
+
+int min_sum(int n, int k, int *&arr)
+{
+	if (k == 0)
 	{
-		if (n & 1)
-			res = (res * x) % mod;
-		x = (x * x) % mod;
-		n >>= 1;
+		return sumx(n, arr);
 	}
-	return res;
+	sort(arr, arr + n);
+	arr[n - 1] = floor(arr[n - 1] / 2);
+
+	return min_sum(n, k - 1, arr);
 }
 
 int main()
 {
-	const int BIG_CHUNGUS = 1000000007;
-	int test, n, x, i;
+	cin.tie(NULL);
+	ios_base::sync_with_stdio(0);
 
-	cin >> test;
+	int n, k, i;
+	cin >> n >> k;
+	int *arr = new int[n];
 
-	while (test--)
+	// Allowed K ops
+	rep(i, n)
 	{
-		veci arr, b;
-		map<int, int> mp;
-
-		cin >> n;
-		rep(i, n)
-		{
-			cin >> x;
-			arr.push_back(x);
-		}
-
-		rep(i, n)
-		{
-			cout << subs_freq_fun(2, n - i, BIG_CHUNGUS);
-		}
-		cout << endl;
-		return 0;
+		cin >> arr[i];
 	}
+
+	cout << min_sum(n, k, arr) << endl;
+}

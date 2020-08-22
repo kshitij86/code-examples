@@ -9,6 +9,7 @@ typedef vector<vector<int>> vecvi;
 typedef vector<vector<string>> vecvs;
 #define REP(i, a, b) for (i = a; i < b; i++)
 #define rep(i, n) REP(i, 0, n)
+#define pb push_back
 
 void print_arr(int arr[], int n)
 {
@@ -37,43 +38,41 @@ void print_vectorv(vecvi arr)
 	cout << endl;
 }
 
-ll subs_freq_fun(ll x, ll n, ll mod)
+bool isValid(string h)
 {
-	ll res = 1;
-	x %= mod;
-	while (n)
-	{
-		if (n & 1)
-			res = (res * x) % mod;
-		x = (x * x) % mod;
-		n >>= 1;
-	}
-	return res;
+	return (h[0] == '1' && h[h.length() - 1] == '1');
 }
 
 int main()
 {
-	const int BIG_CHUNGUS = 1000000007;
-	int test, n, x, i;
+	cin.tie(NULL);
+	ios_base::sync_with_stdio(0);
 
+	int test, n;
+	string o;
 	cin >> test;
 
 	while (test--)
 	{
-		veci arr, b;
-		map<int, int> mp;
-
-		cin >> n;
-		rep(i, n)
+		int ctr = 0;
+		cin >> n >> o;
+		for (int i = 0; i < n; i++)
 		{
-			cin >> x;
-			arr.push_back(x);
+			if (o[i] == '1')
+				ctr++;
 		}
 
-		rep(i, n)
-		{
-			cout << subs_freq_fun(2, n - i, BIG_CHUNGUS);
-		}
-		cout << endl;
-		return 0;
+		// for (int i = 0; i < n; i++)
+		// {
+		// 	for (int j = n-1; j >= i; j--)
+		// 	{
+		// 		if(o[i] == '1' && o[j] == '1')
+		// 			ctr ++;
+		// 	}
+		// }
+		cout << (ctr*(ctr+1))/2 << endl;
 	}
+}
+
+// 1111
+// 0123

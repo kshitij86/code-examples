@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef vector<int> veci;
+#define pb push_back
+#define rep(i,n) for(i = 0; i < n; i++)
+
+int main()
+{
+    long n,k,temp,sum=0, i;
+
+    cin>>n;
+    cin>>k;
+
+    veci v;
+ 	rep(i,n)
+    {
+         cin>>temp;
+         sum = sum + temp;
+         v.pb(temp);
+    }
+    make_heap(v.begin(),v.end());
+    
+    long maxi = 0,res = 0;
+    
+    rep(i,k)
+    {
+        maxi = v.front();
+        sum -= maxi;
+        pop_heap(v.begin(), v.end());
+        v.pop_back();
+        res = maxi / 2;
+        sum += res;
+        v.pb(res);
+    	push_heap(v.begin(),v.end());
+    }
+    cout<<sum;
+	
+	return 0;
+}
